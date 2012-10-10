@@ -1,0 +1,86 @@
+Overview
+
+This is a basic MIDI Library for the pic18F4550 microcontroller.  
+MIDI commands are sent out on pin 25 (RC6/TX/CK) via UART at 31250 baud
+Also included are musical timing functions.  If you desire to write a musical phrase, you will be able to set tempo
+and play notes and rests.
+
+Library created by Allen Lee [alee@meoworkshop.org]
+Revision History:
+
+rev. O: Not released.  Single channel only.
+rev. 1 (1-Oct/12): Multichannel support and timing functions added.
+
+
+
+
+Functions
+
+MIDI 
+The following are basic MIDI commands.
+
+
+void midi_init(void)
+Initializes the EUSART peripheral for MIDI Communication.
+
+void setBank(char channel, char bank)
+Enables a user given bank for a specified channel.  Typically, the bank is 0x00
+
+void setVol(char channel, char vol)
+Sets the volume (up to 127) for a specified channel.
+
+void setInstrument(char channel, char instr)
+Sets the instrument type for a specified channel.
+For the VS1053b, the list of instruments can be found here: http://www.vlsi.fi/fileadmin/datasheets/vlsi/vs1053.pdf
+
+void playNote(char channel, char note)
+Here is where you get your MIDI device to play a note.  The argument (note) accepts MIDI note numbers. 
+You can learn more about them here: http://en.wikipedia.org/wiki/Note
+
+void stopNote(char channel, char note)
+When you play a note for a certain amount of time you should stop it using this function.
+
+void txMIDI(char cmd, char data1, char data2)
+For any commands that are not covered in this library, you can use the txMIDI() function to send them.  If your MIDI command
+is only one data byte long (after the command byte), put "0" as the "data2" argument
+
+
+
+
+Timing
+Musical phrases consist of different note durations (ex. quarter notes, eighth notes) and rests.  Instead of using
+a delay function to accomplish this, the timing functions below can make the job of timing much easier.
+
+
+void setTempo(float tempo)
+Sets the tempo in bpm.  Note, I assume a quarter note reference ie. each beat is a quarter note.  This is often 
+shown in scores as (quarter note picture) = 60.
+
+IMPORTANT NOTE:  Because of some limitations in the delay functions I have used, the slowest tempo you can use is 94 bpm.  I will try to fix this limitation.
+
+void nr(char type)
+Here is where the note or rest duration can be specified.  The following types are valid:
+	-'w' whole note/rest
+	-'h' half note/rest
+	-'q' quarter note/rest
+	-'e' eighth note/rest
+	-'s' sixteenth note/rest
+
+
+
+
+Installation
+
+This library was built in MPLabX.  There are two ways to use this library.
+
+1.  Simply copy and paste the sources (midi.c and midi.h) and add them to your project and make the proper #include definitions in your main.c file
+2.  Add the library into MPLabX.  You can find the instructions here: http://microchip.wikidot.com/mplab:how-to-work-with-libraries
+
+I hope to give a tutorial later for option 2.  For now, if you have any questions please e-mail me!
+
+
+
+Sample Code
+
+Sample code will be provided soon.
+
