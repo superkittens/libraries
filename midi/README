@@ -82,5 +82,4 @@ I hope to give a tutorial later for option 2.  For now, if you have any question
 
 Sample Code
 
-Sample code will be provided soon.
-
+A sample MPLABX project labelled "midi_sample.X" can be found in libraries/midi (the same place where the library is stored)
